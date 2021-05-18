@@ -10,6 +10,7 @@ import {
   WinstonModuleOptions,
 } from './winston.interfaces';
 
+let winstonInstance: Logger;
 class WinstonLogger implements LoggerService {
   constructor(private readonly logger: Logger) {}
 
@@ -64,7 +65,11 @@ export function createWinstonAsyncProviders(
     },
     {
       provide: WINSTON_MODULE_PROVIDER,
-      useFactory: (loggerOpts: LoggerOptions) => createLogger(loggerOpts),
+      useFactory: (loggerOpts: LoggerOptions) => {
+        winstonInstance = winstonInstance || createLogger(loggerOpts);
+
+        return winstonInstance;
+      },
       inject: [WINSTON_MODULE_OPTIONS],
     },
     {
