@@ -7,7 +7,7 @@ export class WinstonLogger {
   /**
    * Creates an instance of WinstonLogger.
    */
-  constructor(contextOrMeta: string, defaultMeta: Record<string, unknown>)
+  constructor(contextOrMeta: string, defaultMeta?: Record<string, unknown>)
   constructor(contextOrMeta: Record<string, unknown>)
   constructor(contextOrMeta: string | Record<string, unknown>, defaultMeta?: Record<string, unknown>) {
     const context = typeof contextOrMeta === 'string' ? contextOrMeta : contextOrMeta.context as string | undefined;
