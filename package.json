@@ -1,6 +1,6 @@
 {
-  "name": "@payk/nestjs-winston",
-  "version": "1.2.1",
+  "name": "@kibibit/nestjs-winston",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "Winston for Nest has never been this easy",
   "keywords": [
@@ -11,7 +11,7 @@
     "logging",
     "nestjs-winston"
   ],
-  "author": "Dan Shapir <danshapir89@gmail.com>",
+  "author": "thatkookooguy <neilkalman@gmail.com>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -56,5 +56,8 @@
   },
   "bugs": {
     "url": "https://github.com/pay-k/nestjs-winston/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
