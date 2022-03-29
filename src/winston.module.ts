@@ -1,4 +1,5 @@
 import { DynamicModule, Global, Module } from '@nestjs/common';
+
 import { WinstonModuleAsyncOptions, WinstonModuleOptions } from './winston.interfaces';
 import { createWinstonAsyncProviders, createWinstonProviders } from './winston.providers';
 
@@ -11,7 +12,7 @@ export class WinstonModule {
     return {
       module: WinstonModule,
       providers: providers,
-      exports: providers,
+      exports: providers
     };
   }
 
@@ -22,7 +23,7 @@ export class WinstonModule {
       module: WinstonModule,
       imports: options.imports,
       providers: providers,
-      exports: providers,
+      exports: providers
     };
   }
 }

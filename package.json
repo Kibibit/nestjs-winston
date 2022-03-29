@@ -1,6 +1,6 @@
 {
   "name": "@kibibit/nestjs-winston",
-  "version": "0.0.2",
+  "version": "1.0.0-beta.1",
   "license": "MIT",
   "description": "Winston for Nest has never been this easy",
   "keywords": [
@@ -18,46 +18,146 @@
     "/dist"
   ],
   "scripts": {
-    "lint": "tslint --project tsconfig.json",
+    "lint": "eslint -c ./.eslintrc.js \"{src,apps,libs,test,examples}/**/*.ts\"",
+    "lint:fix": "eslint -c ./.eslintrc.js \"{src,apps,libs,test,examples}/**/*.ts\" --fix",
+    "contributors:all": "cross-env HUSKY=0 node ./tools/get-all-contributors.js",
+    "contributors:add": "cross-env HUSKY=0 all-contributors add",
+    "contributors:generate": "cross-env HUSKY=1 all-contributors generate",
     "test": "mocha --opts .mocharc",
     "test-juint": "mocha --opts .mocharc --reporter mocha-junit-reporter",
     "prebuild": "rimraf dist",
-    "build": "tsc"
+    "build": "tsc",
+    "semantic-release": "cross-env HUSKY=0 semantic-release",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "winston": "^3.2.1"
-  },
-  "devDependencies": {
-    "@nestjs/common": "^6.7.2",
-    "@nestjs/core": "^6.7.2",
-    "@nestjs/platform-express": "^6.7.2",
-    "@nestjs/testing": "^6.7.2",
-    "@types/chai": "^4.2.3",
-    "@types/mocha": "^5.2.7",
-    "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "mocha-junit-reporter": "^1.23.1",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.0",
-    "rxjs": "^6.5.3",
-    "source-map-support": "^0.5.13",
-    "ts-node": "^8.4.1",
-    "tslint": "^5.20.0",
-    "typescript": "^4.2.4"
-  },
-  "peerDependencies": {
-    "@nestjs/common": "^5.0.0 || ^6.6.0",
+    "colors": "^1.4.0",
     "winston": "^3.0.0"
   },
-  "homepage": "https://github.com/pay-k/nestjs-winston#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-angular": "^13.2.0",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@nestjs/common": "^8.4.3",
+    "@nestjs/core": "^8.4.3",
+    "@nestjs/platform-express": "^8.4.3",
+    "@nestjs/testing": "^8.4.3",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/commit-analyzer": "^9.0.1",
+    "@semantic-release/git": "^10.0.0",
+    "@semantic-release/github": "^8.0.1",
+    "@semantic-release/npm": "^8.0.0",
+    "@semantic-release/release-notes-generator": "^10.0.2",
+    "@types/chai": "^4.3.0",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "^16.10.3",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "all-contributors-cli": "^6.20.0",
+    "chai": "^4.3.6",
+    "commitizen": "^4.2.4",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog-emoji": "^0.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-unused-imports": "^1.1.5",
+    "eslint": "^7.32.0",
+    "husky": "^7.0.0",
+    "mocha-junit-reporter": "^2.0.2",
+    "mocha": "^9.2.2",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.5.5",
+    "semantic-release-cli": "^5.4.4",
+    "semantic-release": "^19.0.2",
+    "source-map-support": "^0.5.21",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^7.0.0 || ^8.0.0",
+    "winston": "^3.0.0"
+  },
+  "homepage": "https://github.com/Kibibit/nestjs-winston#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pay-k/nestjs-winston.git"
+    "url": "https://github.com/Kibibit/nestjs-winston.git"
   },
   "bugs": {
-    "url": "https://github.com/pay-k/nestjs-winston/issues"
+    "url": "https://github.com/Kibibit/nestjs-winston/issues"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog-emoji"
+    }
+  },
+  "release": {
+    "branches": [
+      {
+        "name": "master"
+      },
+      {
+        "name": "beta",
+        "channel": "beta",
+        "prerelease": "beta"
+      }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "angular",
+          "parserOpts": {
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING CHANGES",
+              "BREAKING"
+            ]
+          }
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "angular",
+          "parserOpts": {
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING CHANGES",
+              "BREAKING"
+            ]
+          },
+          "writerOpts": {
+            "commitsSort": [
+              "subject",
+              "scope"
+            ]
+          }
+        }
+      ],
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md",
+          "changelogTitle": "achievibit changelog"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md"
+          ]
+        }
+      ],
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
   }
 }
