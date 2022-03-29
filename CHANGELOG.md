@@ -1,5 +1,12 @@
 achievibit changelog
 
+# [1.0.0-beta.2](https://github.com/Kibibit/nestjs-winston/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-03-29)
+
+
+### Features
+
+* **instance:** expose the winston instance used by the module ([063c1c4](https://github.com/Kibibit/nestjs-winston/commit/063c1c40ead1a8987f2ddefd15e6811a514a16f7))
+
 # 1.0.0-beta.1 (2022-03-29)
 
 
