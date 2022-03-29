@@ -12,7 +12,9 @@ import {
   WinstonModuleOptions
 } from './winston.interfaces';
 
-let winstonInstance: Logger;
+export const winstonInstance: { logger: Logger | null } = {
+  logger: null
+};
 class WinstonLogger implements LoggerService {
   constructor(private readonly logger: Logger) {}
 
@@ -32,7 +34,7 @@ class WinstonLogger implements LoggerService {
     return this.logger.verbose({ ...this.prepareMessage(message), context });
   }
 
-  private prepareMessage(message: any): object {
+  private prepareMessage(message: any): Record<string, unknown> {
     if (!(message instanceof Object)) {
       message = { message };
     }
@@ -68,9 +70,9 @@ export function createWinstonAsyncProviders(
     {
       provide: WINSTON_MODULE_PROVIDER,
       useFactory: (loggerOpts: LoggerOptions) => {
-        winstonInstance = winstonInstance || createLogger(loggerOpts);
+        winstonInstance.logger = winstonInstance.logger || createLogger(loggerOpts);
 
-        return winstonInstance;
+        return winstonInstance.logger;
       },
       inject: [ WINSTON_MODULE_OPTIONS ]
     },
