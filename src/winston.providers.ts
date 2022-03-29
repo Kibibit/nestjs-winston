@@ -1,13 +1,15 @@
-import { LoggerService, Provider } from '@nestjs/common';
 import { createLogger, Logger, LoggerOptions } from 'winston';
+
+import { LoggerService, Provider } from '@nestjs/common';
+
 import {
   WINSTON_MODULE_NEST_PROVIDER,
   WINSTON_MODULE_OPTIONS,
-  WINSTON_MODULE_PROVIDER,
+  WINSTON_MODULE_PROVIDER
 } from './winston.constants';
 import {
   WinstonModuleAsyncOptions,
-  WinstonModuleOptions,
+  WinstonModuleOptions
 } from './winston.interfaces';
 
 let winstonInstance: Logger;
@@ -18,16 +20,16 @@ class WinstonLogger implements LoggerService {
     return this.logger.info({ ...this.prepareMessage(message), context });
   }
   public error(message: any, trace?: string, context?: string) {
-    return this.logger.error({...this.prepareMessage(message), trace, context });
+    return this.logger.error({ ...this.prepareMessage(message), trace, context });
   }
   public warn(message: any, context?: string) {
-    return this.logger.warn({...this.prepareMessage(message), context });
+    return this.logger.warn({ ...this.prepareMessage(message), context });
   }
   public debug?(message: any, context?: string) {
-    return this.logger.debug({...this.prepareMessage(message), context });
+    return this.logger.debug({ ...this.prepareMessage(message), context });
   }
   public verbose?(message: any, context?: string) {
-    return this.logger.verbose({...this.prepareMessage(message), context });
+    return this.logger.verbose({ ...this.prepareMessage(message), context });
   }
 
   private prepareMessage(message: any): object {
@@ -43,15 +45,15 @@ export function createWinstonProviders(
   return [
     {
       provide: WINSTON_MODULE_PROVIDER,
-      useFactory: () => createLogger(loggerOpts),
+      useFactory: () => createLogger(loggerOpts)
     },
     {
       provide: WINSTON_MODULE_NEST_PROVIDER,
       useFactory: (logger: Logger) => {
         return new WinstonLogger(logger);
       },
-      inject: [WINSTON_MODULE_PROVIDER],
-    },
+      inject: [ WINSTON_MODULE_PROVIDER ]
+    }
   ];
 }
 
@@ -61,7 +63,7 @@ export function createWinstonAsyncProviders(
     {
       provide: WINSTON_MODULE_OPTIONS,
       useFactory: options.useFactory,
-      inject: options.inject || [],
+      inject: options.inject || []
     },
     {
       provide: WINSTON_MODULE_PROVIDER,
@@ -70,14 +72,14 @@ export function createWinstonAsyncProviders(
 
         return winstonInstance;
       },
-      inject: [WINSTON_MODULE_OPTIONS],
+      inject: [ WINSTON_MODULE_OPTIONS ]
     },
     {
       provide: WINSTON_MODULE_NEST_PROVIDER,
       useFactory: (logger: Logger) => {
         return new WinstonLogger(logger);
       },
-      inject: [WINSTON_MODULE_PROVIDER],
-    },
+      inject: [ WINSTON_MODULE_PROVIDER ]
+    }
   ];
 }
