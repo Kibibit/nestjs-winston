@@ -1,5 +1,12 @@
 achievibit changelog
 
+# [1.0.0-beta.3](https://github.com/Kibibit/nestjs-winston/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2022-03-29)
+
+
+### Bug Fixes
+
+* **exports:** add providers to module exports ([e33fc3c](https://github.com/Kibibit/nestjs-winston/commit/e33fc3cd194d248da951aba05352a511d263c6dc))
+
 # [1.0.0-beta.2](https://github.com/Kibibit/nestjs-winston/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2022-03-29)
 
 
